@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using PipelinePoC.Messaging;
 
-namespace PipelinePoC;
-public class EventLogger(ILogger<EventLogger> logger, ChannelFactory channelFactory) : IPipelineComponent
+namespace PipelinePoC.Components;
+public class ImageRetriever(ILogger<ImageRetriever> logger, ChannelFactory channelFactory) : IPipelineComponent
 {
     public async ValueTask ExecuteAsync(CancellationToken stoppingToken)
     {
-        logger.LogInformation("EventLogger is starting");
+        logger.LogInformation("ImageRetriever is starting");
 
         var currentComponent = typeof(Renderer).FullName!;
 

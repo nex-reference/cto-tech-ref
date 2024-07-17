@@ -8,6 +8,7 @@
   - [Implementation](#implementation)
   - [IRL](#irl---in-real-life)
   - [Alternate Design](#alternate-design)
+  - [Source Code Structure](#source-code-structure)
   - [References](#references)
 
 ## TL;DR
@@ -144,7 +145,7 @@ So, this is what we will be coding for -
 - For every node we create as many Channel Writers as many child nodes are present. This, for instance means, *Analyzer* node creates two instances of Channels one for *ImageRetriever* and one for *EventLogger*.So, when *Analyzer* needs to publish events it will be write to both the channels created
 - For every child node, a reference to Parent node Channel Reader is maintained. When *Analyzer* creates a Channel for *ImageRetriever*, Channel Reader reference is maintained against *ImageRetriever*. This way *ImageRetriever* is subscribing to the vents written by *Analyzer*
 - We maintain a Write and Read Dictionaries for Channels which is indexed on Node name. 
-Writer["Aanlyer"] would return collection of Channels to which *Analyzer* will publish. Likewise Reader["Analyzer*"] would return Channel to which *Analyzer* subscribes to.
+Writer["Analyzer"] would return collection of Channels to which *Analyzer* will publish. Likewise Reader["Analyzer*"] would return Channel to which *Analyzer* subscribes to.
 
 Here is a sample code to build this - 
 
@@ -207,6 +208,17 @@ We are building a service using similar design to process events from smart came
 ## Alternate Design
 
 We could do a similar implementation where each Node is running as a separate process/service and connected via Queues (e.g. RabbitMQ or Azure Service Bus equivalents on cloud). This will be a complex design. So, why not start with this, see how it scales then switch to more complex solutions ?    
+
+## Source Code Structure
+
+- Program is the entry point of the application
+- Extensions is an extension to IServiceCollection to add the pipeline configuration
+- Interfaces has a single interface which every component implements
+- Models has the Message class and Pipeline Configuration class
+- PipelineService is the background service which reads the pipeline configuration and starts the pipeline
+- Components folder has all the Components that makes up the pipeline, obviously :) 
+- Messaging folder has the messaging infrastructure built using Channels, which is the moot point of this write up :)
+- appsettings.json has the pipeline configuration
 
 ## References
 

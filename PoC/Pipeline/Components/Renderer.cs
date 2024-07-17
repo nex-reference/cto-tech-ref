@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using PipelinePoC.Messaging;
 
-namespace PipelinePoC;
+namespace PipelinePoC.Components;
 public class Renderer(ILogger<Renderer> logger, ChannelFactory channelFactory) : IPipelineComponent
 {
     public async ValueTask ExecuteAsync(CancellationToken stoppingToken)

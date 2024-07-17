@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using PipelinePoC.Messaging;
 
-namespace PipelinePoC;
-public class AnomalyLogger(ILogger<AnomalyLogger> logger, ChannelFactory channelFactory) : IPipelineComponent
+namespace PipelinePoC.Components;
+public class Analyzer(ILogger<Analyzer> logger, ChannelFactory channelFactory) : IPipelineComponent
 {
     public async ValueTask ExecuteAsync(CancellationToken stoppingToken)
     {
-        logger.LogInformation("AnomalyLogger is starting");
+        logger.LogInformation("Analyzer is starting.");
 
         var currentComponent = typeof(Renderer).FullName!;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PipelinePoC;
+using PipelinePoC.Messaging;
 
 await CreateHostBuilder(args)
     .Build()

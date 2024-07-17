@@ -1,6 +1,6 @@
 ﻿using System.Threading.Channels;
 
-namespace PipelinePoC;
+namespace PipelinePoC.Messaging;
 public class ChannelFactory
 {
     private readonly Dictionary<string, List<ChannelWriter<Message>>> writers = [];
