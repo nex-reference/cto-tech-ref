@@ -53,11 +53,11 @@ FunctionB(outputFromA)\
 ... and so on
 
 A few things to be kept in mind -
-1. The service is being sent millions of events
-2. As service is being sent millions of events, it is possible that it may not be possible to process them all at the speed of their arrival, even if the combined processing time of all the nodes is sub-second. This means we need a storage.
-3. Every node takes different time intervals to process an event. We can have situations like while node B is processing event 1, node A would have completed processing event 2. This means there needs to be some storage like a queue between nodes.
-4. If we are bringing in a storage between the nodes, nodes need to be made aware when an input is being queued. 
-5. Node paths needs to be configurable
+- The service is being sent millions of events
+- As service is being sent millions of events, it is possible that it may not be possible to process them all at the speed of their arrival, even if the combined processing time of all the nodes is sub-second. This means we need a storage.
+- Every node takes different time intervals to process an event. We can have situations like while node B is processing event 1, node A would have completed processing event 2. This means there needs to be some storage like a queue between nodes.
+- If we are bringing in a storage between the nodes, nodes need to be made aware when an input is being queued. 
+- Node paths needs to be configurable
 
 What we are looking here is a series of nodes, a *pipeline*, connected with queues, decoupled asynchronous design. A pub-sub queue which should notify its nodes when an event is queued and all done in a thread-safe way considering the scale. Lastly, it has to be very fast.
 
@@ -87,14 +87,14 @@ So, here we have warehouses which have 100s of smart cameras installed which are
 
 Our service, has to -
 
-1. Receive the event inferences - *Receiver*
-2. Analyze the result - *Analyzer*
-3. If there are anomalies detected
+- Receive the event inferences - *Receiver*
+- Analyze the result - *Analyzer*
+- If there are anomalies detected
    - Call an external API to download the snapshot - *ImageRetriever*
    - Draw bounding boxes - *Renderer*
    - Send e-mails to authorities on anomalies with the snapshot - *Notifier*
    - Log data in anomalies store - *AnomalyLogger*
-4. Log the event - *EventLogger*   
+- Log the event - *EventLogger*   
 
 We can represent this pipeline as a DAG -
 
@@ -211,10 +211,10 @@ We could do a similar implementation where each Node is running as a separate pr
 
 ## Source Code Structure
 
-- Program is the entry point of the application
+- Program.cs, obviously is the entry point of the application
 - Extensions is an extension to IServiceCollection to add the pipeline configuration
 - Interfaces has a single interface which every component implements
-- Models has the Message class and Pipeline Configuration class
+- Models has the Message and Pipeline Configuration class
 - PipelineService is the background service which reads the pipeline configuration and starts the pipeline
 - Components folder has all the Components that makes up the pipeline, obviously :) 
 - Messaging folder has the messaging infrastructure built using Channels, which is the moot point of this write up :)
